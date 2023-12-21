@@ -1,10 +1,18 @@
 <html>
   <head>
     <link rel="stylesheet" href="index.css" />
+    <title>Passenger Counter</title>
   </head>
   <body>
-    <h1>People Entered:</h1>
-    <h2 id="count-el">0</h2>
-    <script src="index.js"></script>
+    <div class="container">
+      <h1>People Entered:</h1>
+      <h2 id="count-el">0</h2>
+      <button id="increment-btn" onclick="increment()">Increment</button>
+      <button id="save-btn" onclick="save()">Save</button>
+      <h1>People Entered:</h1>
+      <h1 id="entries"></h1>
+      <button id="clear-btn" onclick="clearEntries()">Clear</button>
+      <script src="index.js"></script>
+    </div>
   </body>
 </html>
