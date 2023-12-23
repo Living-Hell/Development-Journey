@@ -6,12 +6,17 @@
   <body>
     <h1>Blackjack</h1>
     <p id="message-el">Want to play a round?</p>
-    <p>Cards:</p>
-    <p id="cards-el"></p>
-    <p id="sum-el">Sum:</p>
-    <button id="start-btn" onclick="startGame()">Start Game</button>
-    <button id="new-card-btn" onclick="newCard()">New Card</button>
-    <p id="player-el"></p>
+    <div class="inputContainer">
+      <p>Player Name:</p>
+      <input id="input-name" placeholder="Enter your name..." />
+    </div>
+    <div class="inputContainer">
+      <p>Starting Amount:</p>
+      <input id="input-chips" placeholder="Amount to start with..." />
+    </div>
+    <button onclick="window.location.href='./game.html', enterGame()">
+      Start Game
+    </button>
     <script src="index.js"></script>
   </body>
 </html>
