@@ -8,7 +8,9 @@ let sumEl = document.getElementById("sum-el");
 let cardsEl = document.getElementById("cards-el");
 let newCardBtn = document.getElementById("new-card-btn");
 let playerEl = document.getElementById("player-el");
+let startBtn = document.getElementById("start-btn");
 let cardsURL = [];
+let zeroPoints = false;
 
 async function fetchCards() {
   try {
@@ -40,6 +42,8 @@ function getRandomCard() {
 }
 
 async function startGame() {
+  if (zeroPoints === true) return;
+
   cardsURL = await fetchCards();
 
   if (isAlive === false || hasBlackjack === true) {
@@ -72,10 +76,20 @@ function renderGame() {
   } else if (sum === 21) {
     message = "You've got Blackjack!";
     hasBlackjack = true;
+    player.chips *= 2;
   } else {
     message = "You're out of the game!";
     isAlive = false;
+    player.chips =
+      player.chips * 0.1 >= 5
+        ? Math.ceil(player.chips * 0.9)
+        : Math.max(player.chips - 5, 0);
+    if (player.chips === 0) {
+      startBtn.style.cursor = "not-allowed";
+      zeroPoints = true;
+    }
   }
+  playerEl.textContent = player.name + ": $" + player.chips;
   messageEl.textContent = message;
 }
 
