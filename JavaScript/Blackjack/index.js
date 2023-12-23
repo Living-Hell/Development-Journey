@@ -64,10 +64,7 @@ function renderGame() {
   cardsEl.textContent = "Cards: ";
   for (let i = 0; i < cards.length; i++) {
     // cardsEl.textContent += cards[i] + "  ";
-    const imageTags = cards.map(
-      (img) =>
-        `<img src="${img}" style="height:75px; width:50px; margin-right:5px;">`
-    );
+    const imageTags = cards.map((img) => `<img src="${img}" class="card">`);
     cardsEl.innerHTML = imageTags.join("");
   }
   if (sum <= 20) {
