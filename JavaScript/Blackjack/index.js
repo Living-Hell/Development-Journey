@@ -8,6 +8,18 @@ let sumEl = document.getElementById("sum-el");
 let cardsEl = document.getElementById("cards-el");
 let newCardBtn = document.getElementById("new-card-btn");
 let playerEl = document.getElementById("player-el");
+let cardsURL = [];
+
+async function fetchCards() {
+  try {
+    const response = await fetch("cards.json");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching cards:", error);
+    return null;
+  }
+}
 
 let player = {
   name: "Shushant",
@@ -20,19 +32,29 @@ function getRandomCard() {
   let card = Math.floor(Math.random() * 13) + 1;
   if (card === 1) card = 11;
   else if (card > 10) card = 10;
-  return card;
+  let i = card - 2;
+  let j = Math.floor(Math.random() * cardsURL[i].length);
+  console.log(i, j);
+  // cardsURL[i].splice(j, 1);
+  return [cardsURL[i][j], card];
 }
 
-function startGame() {
+async function startGame() {
+  cardsURL = await fetchCards();
+
   if (isAlive === false || hasBlackjack === true) {
     isAlive = true;
     hasBlackjack = false;
     newCardBtn.style.cursor = "pointer";
   }
-  let card1 = getRandomCard();
-  let card2 = getRandomCard();
+  let randomCard1 = getRandomCard();
+  let randomCard2 = getRandomCard();
+  let card1 = randomCard1[0];
+  let card2 = randomCard2[0];
+  let point1 = randomCard1[1];
+  let point2 = randomCard2[1];
   cards = [card1, card2];
-  sum = card1 + card2;
+  sum = point1 + point2;
   renderGame();
 }
 
@@ -41,7 +63,12 @@ function renderGame() {
   sumEl.textContent = "Sum: " + sum;
   cardsEl.textContent = "Cards: ";
   for (let i = 0; i < cards.length; i++) {
-    cardsEl.textContent += cards[i] + "  ";
+    // cardsEl.textContent += cards[i] + "  ";
+    const imageTags = cards.map(
+      (img) =>
+        `<img src="${img}" style="height:75px; width:50px; margin-right:5px;">`
+    );
+    cardsEl.innerHTML = imageTags.join("");
   }
   if (sum <= 20) {
     message = "Do you want to draw more?";
@@ -59,8 +86,11 @@ function newCard() {
   // console.log("New game will be started!");
   if (isAlive === true && hasBlackjack === false) {
     let newCard = getRandomCard();
-    sum += newCard;
-    cards.push(newCard);
+    console.log(newCard);
+    let card = newCard[0];
+    let point = newCard[1];
+    sum += point;
+    cards.push(card);
     renderGame();
   } else {
     newCardBtn.style.cursor = "not-allowed";
