@@ -8,15 +8,23 @@
     <p id="message-el">Want to play a round?</p>
     <div class="inputContainer">
       <p>Player Name:</p>
-      <input id="input-name" placeholder="Enter your name..." />
+      <input
+        type="text"
+        id="input-name"
+        placeholder="Enter your name..."
+        required
+      />
     </div>
     <div class="inputContainer">
       <p>Starting Amount:</p>
-      <input id="input-chips" placeholder="Amount to start with..." />
+      <input
+        type="text"
+        id="input-chips"
+        placeholder="Amount to start with..."
+        required
+      />
     </div>
-    <button onclick="window.location.href='./game.html', enterGame()">
-      Start Game
-    </button>
+    <button id="enter-btn" onclick="enterGame()">Start Game</button>
     <script src="index.js"></script>
   </body>
 </html>
